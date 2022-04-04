@@ -18,10 +18,19 @@ from urllib import request
 import urllib
 
 
-def get_Data():
+def get_url():
     name = input("爬取的小说：")
-    url1 = 'http://www.ibiqu.net/book/52542/'
-    res = requests.get(url=url1, headers=headers)
+    url = f'http://www.ibiqu.net/modules/article/search.php?searchkey={name}'
+    res = requests.get(url=url, headers=headers)
+    text = res.text
+    addrress = etree.HTML(text)
+    addrress1 = addrress.xpath('//div[@id="hotcontent"]/table//tr//a/@href')[0]
+    next_url = urllib.parse.urljoin('http://www.ibiqu.net/book/52542', addrress1)
+    get_Data(name, next_url)
+
+
+def get_Data(name, urs):
+    res = requests.get(url=urs, headers=headers)
     if res.status_code == 200:
         text = res.text
         list1 = etree.HTML(text)
@@ -51,4 +60,4 @@ def neirong(zhangjieid, title, name):
 
 
 if __name__ == '__main__':
-    get_Data()
+    get_url()
