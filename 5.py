@@ -106,4 +106,3 @@
 #
 # test = sample("Tim", 25, 80, 4, "Python")
 # test.speak()  # 方法名同，默认调用的是在括号中参数位置排前父类的方法
-print("jdhjkh");
